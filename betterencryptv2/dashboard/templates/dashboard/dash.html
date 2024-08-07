@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>BetterEncrypt</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'dashboard/dashboard.css' %}">
+        <link rel="icon" href="{% static 'dashboard/images/favicon-32x32.png' %}" type="image/x-icon">
+    </head>
+    <body id="main">
+        <div id="sidebar">
+            <div id="sidebarIcons">
+                {% load static %}
+                <img id="arrowbar" class="icons" src="{% static 'dashboard/images/arrow-bar-right.svg' %}" onclick="toggleSidebar()">
+                <img id="keyimg" class="icons" src="{% static 'dashboard/images/key.png' %}">
+                <img id="boximg" class="icons" src="{% static 'dashboard/images/boxwitharrowup.png' %}" onclick="redirectPage()">
+                <img id="settimg" class="icons" src="{% static 'dashboard/images/settings.png' %}">
+            </div>
+            <div id="sideBarText">
+                <p style="margin-top: 5px;">BetterEncrypt</p>
+                <p style="margin-top: 30px;">Passwords</p>
+                <p style="margin-top: 36px;" onclick="redirectPage()">Generate</p>
+                <p style="margin-top: 556px;">Settings</p>
+            </div>
+        </div>
+        <h1 id="title">Dashboard</h1>
+
+        <!-- Passwords here -->
+
+        <div id="profilediv">
+            {% load static %}
+            <img id="profileimg" src="{% static 'dashboard/images/account.jpg' %}">
+            <p id="profileName">{{ username }}</p> <!-- Add user name -->
+        </div>
+        {% load static %}
+        <script>
+            var arrowbarright = "{% static 'dashboard/images/arrow-bar-right.svg' %}";
+            var arrowbarleft = "{% static 'dashboard/images/arrow-bar-left.svg' %}";
+          </script>
+        <script src="{% static 'dashboard/index.js' %}"></script>
+        <!-- <p>Welcome mark</p> -->
+    </body>
+</html>

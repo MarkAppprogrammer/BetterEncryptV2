@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BetterEncrypt</title>
+    {% load static %}
+    <link id="mainTheme" rel="stylesheet" href="{% static 'generator/style.css' %}">
+    <link rel="icon" href="{% static 'generator/images/favicon-32x32.png' %}" type="image/x-icon">
+    <link id="loaderTheme" rel="stylesheet" href="{% static 'generator/loader.css' %}" disabled>
+  </head>
+  <body id="genpage">
+    <main>
+        <div id="generatordiv">
+            <h1 id="title">Password Generator</h1>
+            <h2 id="description">Select the features that you would like to be included in your password</h2>
+            <h3 id="extras" onclick="dropDown()">Password Requirements &#9654</h3> <!-- &#9660  or  &#9654 -->
+            <div id="features">
+                <ul>
+                  <form id="addons" action="" method="POST">
+                    {% csrf_token %}
+                    <input type="checkbox" id="feature" name="spaces" value="True" style="display: inline;">
+                    <label for="spaces">Spaces</label>
+                    <input type="checkbox" id="feature" name="specialChars" value="True" style="display: inline;">
+                    <label for="specialChars">Special characters</label>
+                    <input type="checkbox" id="feature" name="numbers" value="True" style="display: inline;">
+                    <label for="numbers">Numbers</label>
+                    <input type="checkbox" id="feature" name="uppercase" value="True" style="display: inline;">
+                    <label for="uppercase">Uppercase</label>
+                    <input type="checkbox" id="feature" name="none" value="True" style="display: inline;">
+                    <label for="none">None</label>
+                    <button id="submitbtn" style="font-size: 18px; border: 0px;">Generate</button>
+                  </form>
+                </ul>
+            </div>
+        </div>
+
+        <div class="loader">
+          <div style="--i: 1"></div>
+          <div style="--i: 2"></div>
+          <div style="--i: 3"></div>
+          <div style="--i: 4"></div>
+        </div>
+    </main>
+  {% load static %}
+<!--   <script type="text/javascript">
+    $(document).ready(function(){
+        $('#newform input[type="checkbox"]#feature').change(function(){
+            $('#newform').submit();
+        });
+    });
+  </script> -->
+	<script src="{% static 'generator/index.js' %}"></script>
+  </body>
+</html>

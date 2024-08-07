@@ -1,0 +1,86 @@
+#title {
+    margin-left: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    float: left;
+}
+
+#sidebar {
+    background-color: darkslategray;
+    height: 100vh;
+    width: 5vh;
+    float: left;
+    display: flex;
+}
+
+#main {
+    background-color: rgb(217, 217, 217);
+}
+
+#sidebarIcons {
+/*     text-align: center; */
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+}
+
+#sideBarText {
+    margin-top: 20px;
+    margin-left: 10px;
+    width: max-content;
+    visibility: hidden;
+}
+
+#main {
+    margin: 0px;
+}
+
+.icons {
+    width: 35px;
+    height: 35px;
+    margin-top: 30px;
+    margin-left: 2px;
+}
+
+#arrowbar {
+    margin-top: 20px;
+}
+
+p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 20px;
+    margin: 0px;
+}
+
+#profilediv {
+    margin-right: 40px;
+    margin-top: 21.440px;
+    width: max-content;
+    float: right;
+    background-color: white;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#profileName {
+    display: inline;
+    vertical-align: middle;
+}
+
+#profileimg {
+    width: 25px;
+    height: 25px;
+    display: inline;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+#settimg {
+    margin-top: 550px;
+}

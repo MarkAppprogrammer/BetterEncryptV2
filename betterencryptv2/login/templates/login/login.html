@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BetterEncrypt</title>
+    {% load static %}
+    <link id="mainTheme" rel="stylesheet" href="{% static 'generator/style.css' %}">
+    <link rel="icon" href="{% static 'generator/images/favicon-32x32.png' %}" type="image/x-icon">
+  </head>
+  <body id="body">
+    <main>
+        <div id="logindiv">
+            <h1 id="title"">BetterEncrypt</h1>  
+
+            <div class="container">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="inputs" id="topinput">
+                        <input class="input" type="text" placeholder="Username" name="uname" required>
+                    </div>
+
+                    <div class="inputs">
+                        <input class="input" type="password" placeholder="Password" name="psw" required>
+                    </div>
+                    <button type="submit" class="loginbtn">Login</button>
+                </form>
+            </div>
+            
+            <div class="container" id="bottomdiv">
+                <label id="rememberlabel">
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+                <span class="psw""><a href="#">Forgot password?</a></span>
+            </div>
+        </div>
+    </main>
+	<!-- <script src="index.js"></script> -->
+  </body>
+</html>
