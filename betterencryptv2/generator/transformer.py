@@ -37,7 +37,7 @@ def process_data(prompt):
     #api for model
     client = InferenceClient(
         "microsoft/Phi-3-mini-4k-instruct",
-        token="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",
+        token="XXXXX",
     )
 
     final = ""
