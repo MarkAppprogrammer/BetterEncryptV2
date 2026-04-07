@@ -34,7 +34,7 @@ def passwordAlgorithm(securityLevel, memorabilityLevel, prompt):
     password += randomChar(numSpecial, specialChars)
 
     # add shuffle function
-    shuffle(password)
+    password = shuffle(password)
 
     # add memrobality / pattern maker if mem > 5
     if (memorabilityLevel >= 5):
@@ -48,7 +48,7 @@ def shuffle(password):
 def randomChar(n, inputList):
     string = ""
     for _ in range(int(n)):
-        string += inputList[random.randrange(0, len(inputList) - 1, 1)]
+        string += inputList[random.randrange(0, len(inputList), 1)]
     return string#generate n random 
 
 def patternize(memorabilityLevel, password, prompt):

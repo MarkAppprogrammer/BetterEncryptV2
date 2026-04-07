@@ -1,0 +1,23 @@
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+.venv/
+venv/
+
+# Local env files / secrets
+.env
+**/.env
+
+# Django
+db.sqlite3
+**/db.sqlite3
+staticfiles/
+**/staticfiles/
+
+# Editor
+.vscode/
+.idea/

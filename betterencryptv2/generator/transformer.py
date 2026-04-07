@@ -1,6 +1,23 @@
 from huggingface_hub import InferenceClient
-import language_tool_python
 from .passwordgen import numbers
+import os
+import re
+from pathlib import Path
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
+
+try:
+    import requests
+except Exception:
+    requests = None
+
+try:
+    import language_tool_python
+except Exception:
+    language_tool_python = None
 
 safe = False
 """ numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -28,56 +45,53 @@ def process_data(prompt):
     prompt = prompt.lower()
     prompt = "Generate a password for my " + prompt
     #grammer /punc check
-
-    tool = language_tool_python.LanguageTool('en-US')
-    matches = tool.check(prompt)
-    correct_prompt = tool.correct(prompt)
-    print(correct_prompt)
+    correct_prompt = prompt
+    if language_tool_python is not None:
+        tool = language_tool_python.LanguageTool("en-US")
+        correct_prompt = tool.correct(prompt)
 
     #api for model
+    token = os.environ.get("HF_TOKEN")
+    if not token and load_dotenv is not None:
+        try:
+            from django.conf import settings
+
+            load_dotenv(Path(settings.BASE_DIR) / ".env")
+            token = os.environ.get("HF_TOKEN")
+        except Exception:
+            token = os.environ.get("HF_TOKEN")
+    if not token:
+        raise RuntimeError("Missing HF_TOKEN environment variable for Hugging Face inference.")
     client = InferenceClient(
         "microsoft/Phi-3-mini-4k-instruct",
-        token="XXXXX",
+        token=token,
     )
 
     final = ""
-
-    for message in client.chat_completion(
-        messages = [
-            {
-                "role": "system",
-                "content": "You will be given a prompt that details a password’s use. Provide two numbers, the first number will detail the security level required, and the second number will detail the level of memorability required. Both numbers are rated on a scale from 01 - 10 where 1 is the lowest level and is the highest. Provide the security level number first and the other number second without explanations."
-            },
-            {
-                "role": "user",
-                "content": correct_prompt
-            }
-        ],
-        max_tokens=100,
-        stream=True,
-    ):
-        final += message.choices[0].delta.content
-    return parse_result(final)
+    try:
+        for message in client.chat_completion(
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You will be given a prompt that details a password’s use. Provide two numbers, the first number will detail the security level required, and the second number will detail the level of memorability required. Both numbers are rated on a scale from 01 - 10 where 1 is the lowest level and is the highest. Provide the security level number first and the other number second without explanations.",
+                },
+                {"role": "user", "content": correct_prompt},
+            ],
+            max_tokens=100,
+            stream=True,
+        ):
+            final += message.choices[0].delta.content
+        return parse_result(final)
+    except Exception:
+        # If the inference call is blocked/unavailable (proxy/network), fall back
+        # to reasonable defaults so the site remains usable.
+        return ["7", "5"]
     
 def parse_result(data):
     print(data)
-    final = ["", ""]
-
-    data = str(data)
-
-    check = 0
-    for i, char in enumerate(data):
-        if char in numbers:
-            if check == 0:
-                final[check] += char
-                if data[i + 1] in numbers:
-                    final[check] += char
-                check += 1
-            else:
-                final[check] += char
-                if i != len(data) - 1:
-                    if data[i + 1] in numbers:
-                        final[check] += char
-                break
-
-    return final
+    nums = re.findall(r"\d+", str(data))
+    if len(nums) >= 2:
+        return [nums[0], nums[1]]
+    if len(nums) == 1:
+        return [nums[0], ""]
+    return ["", ""]

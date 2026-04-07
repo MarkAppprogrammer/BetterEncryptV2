@@ -33,7 +33,7 @@ def gen_view(request):
         password = passwordAlgorithm(int(result[0]), int(result[1]), prompt)
         print(password)
         #redirect_view(request, password)
-        return render(request, 'generator/result.html', {'password': 'testish'})
+        return render(request, 'generator/result.html', {'password': password})
 
     return render(request, 'generator/generator.html')
 
